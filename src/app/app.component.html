@@ -1,0 +1,289 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<style>
+/*   :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+ */
+ /*  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    //margin: 8px 0;
+  } */
+
+  p {
+    margin: 0;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+
+  .content {
+    display: flex;
+    margin: 82px auto 32px;
+    padding: 0 16px;
+    max-width: 960px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  a,
+  a:visited,
+  a:hover {
+    color: #1976d2;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #125699;
+  }
+
+  .square_btn{
+    display: inline-block;
+    position: absolute;
+    padding: 2px 10px;
+	  border-radius: 25px;
+    text-decoration:none;
+    font-size: small;
+    color: #FFF;
+    background-image: -webkit-linear-gradient(45deg, #FFC107 0%, #ff8b5f 100%);
+    background-image: linear-gradient(45deg, #FFC107 0%, #ff8b5f 100%);
+    transition: .4s;
+    top: 0;
+    right: 0;
+  }
+
+.square_btn:hover {
+    background-image: -webkit-linear-gradient(45deg, #FFC107 0%, #f76a35 100%);
+    background-image: linear-gradient(45deg, #FFC107 0%, #f76a35 100%);
+  }
+
+  .terminal {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    border-radius: 6px;
+    padding-top: 45px;
+    margin-top: 8px;
+    overflow: auto;
+    background-color: rgb(15, 15, 16);
+  }
+
+  .terminal::before {
+    content: "\2022 Console";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: rgb(58, 58, 58);
+    color: #c2c3c4;
+    width: 100%;
+    font-size: 1rem;
+    line-height: 0;
+    padding: 10px 0;
+    text-indent: 4px;
+  }
+
+  .terminal pre {
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    color: white;
+    padding: 0 1rem 1rem;
+    margin: 0;
+  }
+
+
+
+  
+.inputPane {
+  position: relative;  
+  width: 25%;
+  height: 500px;
+  float: left;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 6px;
+  padding-top: 25px;
+  margin-top: 8px
+}
+
+.inputPane::before {
+    content: "\2022 Function Parameter Value(s)";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: rgb(58, 58, 58);
+    color: #c2c3c4;
+    width: 100%;
+    font-size: 1rem;    
+    line-height: 0;
+    padding: 10px 0;
+    text-indent: 4px;
+  }
+
+  .outputPane {
+    position: relative;
+    width: 23%;
+    height: 500px;
+    float: left;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 6px;
+    padding-top: 25px;
+    margin-top: 8px
+  }
+
+.outputPane::before {
+    content: "\2022 Transformed Data";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: #3a3a3a;
+    color: #c2c3c4;
+    width: 100%;
+    font-size: 1rem;
+    line-height: 0;
+    padding: 10px 0;
+    text-indent: 4px;
+  }
+
+.editorPane {  
+  position: relative;
+  width: 50%;
+  height: 500px;
+  float: left;
+  padding: 2px;  
+  border: 1px solid black;
+  border-radius: 6px;
+  padding-top: 25px;
+  margin-top: 8px
+}
+
+.editorPane::before {
+    content: "\2022 Transformer Function Editor ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: rgb(58, 58, 58);
+    color: #c2c3c4;
+    width: 100%;
+    font-size: 1rem;
+    line-height: 0;
+    padding: 10px 0;
+    text-indent: 4px;
+  }
+
+.masterPane {
+  width: 100%;
+  height: 100%;
+  float: left;
+  padding: 2px;
+  border: 1px solid black;
+}
+
+</style>
+
+<!-- Toolbar -->
+<!-- <div class="toolbar" role="banner">
+  
+  <span>Welcome</span>
+    <div class="spacer"></div>
+    
+</div>
+ -->
+ <!-- <div class="masterPane">
+  
+ </div> -->
+ <div class="inputPane">
+   <div >
+    <ngx-codemirror 
+    [(ngModel)]="inputContent"
+    [options]="{
+      lineNumbers: true,
+      theme: 'default',
+      mode: 'application/json',
+      gutters: ['CodeMirror-lint-markers'],
+      lint: true
+    }"
+    (focusChange) = this.inputFocusChange($event)
+  ></ngx-codemirror>
+   </div>
+  
+</div>
+<div class="editorPane" >
+  <a (click)=runButtonClicked($event) href="#" class="square_btn" style="margin-right: 10px;" >RUN</a>
+  <a (click)=runButtonClicked($event) href="#" class="square_btn" style="margin-right: 60px;">SAVE</a>
+  <ngx-codemirror 
+    [(ngModel)]="editorContent"
+    [options]="{
+      lineNumbers: true,
+      theme: 'mbo',
+      mode: 'javascript',
+      gutters: ['CodeMirror-lint-markers'],  
+      lint: true    
+    }"
+    (focusChange) = this.editorFocusChange($event)
+  ></ngx-codemirror>
+</div>
+<div class="outputPane">
+  <ngx-codemirror 
+  [(ngModel)]="outputContent"
+  [options]="{
+    lineNumbers: true,
+    theme: 'default',
+    mode: 'application/json',
+    readOnly:'nocursor'
+  }"
+  (focusChange) = this.inputFocusChange($event)
+></ngx-codemirror>
+</div>
+<div  class="terminal" >
+  <pre *ngFor="let msg of consoleMessages">{{msg}}</pre>
+ </div>
+
+ <script>
+   
+ </script>
+<!-- Terminal -->
+
+
+
+  
+  
+
+  
+
+ 
+
+
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+
+
+<router-outlet></router-outlet>
