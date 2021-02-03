@@ -1,5 +1,6 @@
 import { variable } from '@angular/compiler/src/output/output_ast';
 import { Component } from '@angular/core';
+import SampleMessage from '../assets/sample-message.json';
 
 @Component({
   selector: 'app-root',
@@ -8,29 +9,51 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TXEditor';
-  inputContent = 'Input to the entry point function goes here'
-  editorContent = "//**Welcome to TXEditor- Add your transformer function logic here.. \n"+
-                  "// Use 'payload' as parameter to access parameter values in Input Pane\n" +
-                  "// processMessage() will be the entrypoint of transformation logic\n"+
-                  "function processMessage(message){\n\n" +
+  inputContentJS = JSON.stringify({'msg':'A sample Message'}, undefined, 2)
+  inputContentSQL = JSON.stringify( SampleMessage, undefined, 2)
+  inputContent = this.inputContentJS //'Input to the entry point function goes here'
+  editorContentJS = "//**Add your transformer function logic here.. \n"+                  
+                  "//**NOTE**: Do not change/delete processMessage() or its signature. It is the entrypoint of transformation logic\n"+
+                  "function processMessage(message){\n" +
+                  "\t//You logic goes here...\n\n" +
                   "\treturn message;"+
                   "\n}";
+  editorContent = this.editorContentJS
+  editorContentSQL = "//Define your route query condition and evaluate here.\n\n"+
+                    "True";
   outputContent = "Transformed data appear here..."
-  consoleMessages : Array<String> = ["LOg1", "Log2", "Log3"] ;
+  consoleMessages : Array<String> = [] ;
+  editors:Array<any> = [{DisplayText:"Transformer Function Editor",
+                         Value:"javascript" },
+                        {DisplayText:"Route Query Editor",
+                        Value:"text/x-sql"}];
   inputObject = {};
   outputObject = {};
+  cmEditorPane:any = {};
+  cmEditorPaneOptions = {
+      lineNumbers: true,
+      theme: 'mbo',
+      extraKeys: {"Ctrl-Space": "autocomplete"},
+      mode: 'javascript',
+      gutters: ['CodeMirror-lint-markers'],  
+      lint: true  
+      
+  }
+  selectedItem:any = this.editors[0];
+  paneTitle:String = this.editors[0].DisplayText;
+
 
   editorFocusChange = ( focused:Boolean) =>{
     if(focused){
       console.log("Code Editor focused...");
+      console.log(JSON.stringify(this.cmEditorPane))
+      this.cmEditorPaneOptions.lineNumbers = true
     }else{
       console.log("Code Editor lost focus...");
-      console.log(this.editorContent);     
-       //var executor = this.ScriptExecutorWrapper(this.editorContent);
-       //executor();
-       this.runScript(this, new Promise<string>((resolve, reject)=>{resolve(this.editorContent)} ));
-       //this.outputContent = this.objectToText(this.outputObject);
-      // console.log(this.outputContent);
+      console.log(this.editorContent); 
+      this.cmEditorPaneOptions.lineNumbers = false      
+     // this.runScript(this, new Promise<string>((resolve, reject)=>{resolve(this.editorContent)} ));
+      
     }
     
   }
@@ -38,24 +61,56 @@ export class AppComponent {
   runButtonClicked = (event:any)=>{
     event.preventDefault();
     console.log("Run clicked..");
-    this.runScript(this, new Promise<string>((resolve, reject)=>{resolve(this.editorContent)} ));
+    this.runScript(this.selectedItem.Value, new Promise<string>((resolve, reject)=>{resolve(this.editorContent)} ));
   } 
 
+  dropDownSelectionChange = (event:any)=>{
+    console.log("Selected Item..(" + this.selectedItem.Value + ")" + this.selectedItem.DisplayText);
+    this.paneTitle = this.selectedItem.DisplayText
+    this.cmEditorPaneOptions.mode = this.selectedItem.Value;
+
+    if(this.selectedItem.Value === "javascript"){
+      this.editorContentSQL = this.editorContent
+      this.editorContent = this.editorContentJS
+      this.inputContent = this.inputContentJS
+    }
+    else{
+      this.editorContentJS = this.editorContent
+      this.editorContent = this.editorContentSQL
+      this.inputContent = this.inputContentSQL
+    }
+  }
   inputFocusChange = ( focused:Boolean) =>{
     if(focused){
       console.log("Input Editor focused...");
     }else{
       console.log("Input Editor lost focus...");
       console.log(this.inputContent);     
-       this.inputObject = JSON.parse(this.inputContent);       
+      // this.inputObject = JSON.parse(this.inputContent);       
     }    
   }
 
-  runScript(thisRef:any,closure:Promise<string>) {
+  
+  runScript(scriptType:string, closure:Promise<string>){
+
+    switch (scriptType){
+      case 'javascript':
+        console.log("Executing JS script...")
+        this.runScriptJS(this, closure);
+        break;
+      case 'text/x-sql':
+        console.log("Executing SQL script...")
+        this.runScriptSQL(this, closure)
+        break
+    }
+
+  }
+  
+  runScriptJS(thisRef:any,closure:Promise<string>) {
 
     const rawConsole = console;
     const appRef = thisRef;
-    const payload = this.inputObject;
+    const payload = JSON.parse(this.inputContent);
     var transformedPayload = {};
     var context = {} as any;
     closure.then(js => {
@@ -99,6 +154,9 @@ export class AppComponent {
     }
   }
 
+  runScriptSQL(thisRef:any,closure:Promise<string>){
+
+  }
   objectToText = (arg: any): string => {
     const isObj = typeof arg === "object"
     let textRep = ""

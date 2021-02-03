@@ -2,6 +2,8 @@ import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/markdown/markdown';
 import 'codemirror/addon/lint/lint';
 import 'codemirror/addon/lint/javascript-lint';
+import 'codemirror/addon/hint/show-hint'
+import 'codemirror/addon/hint/javascript-hint'
 import { enableProdMode } from '@angular/core';
 //import "@angular/compiler";
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
