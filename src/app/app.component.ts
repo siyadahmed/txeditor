@@ -7,6 +7,8 @@ import SampleMessage from '../assets/sample-message.json';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
+
 export class AppComponent {
   title = 'TXEditor';
   inputContentJS = JSON.stringify({'msg':'A sample Message'}, undefined, 2)
@@ -30,14 +32,12 @@ export class AppComponent {
   inputObject = {};
   outputObject = {};
   cmEditorPane:any = {};
-  cmEditorPaneOptions = {
+  cmEditorPaneOptions :CMOptions = {
       lineNumbers: true,
-      theme: 'mbo',
-      extraKeys: {"Ctrl-Space": "autocomplete"},
+      theme: 'mbo',     
       mode: 'javascript',
       gutters: ['CodeMirror-lint-markers'],  
-      lint: true  
-      
+      lint: true        
   }
   selectedItem:any = this.editors[0];
   paneTitle:String = this.editors[0].DisplayText;
@@ -115,7 +115,7 @@ export class AppComponent {
     var context = {} as any;
     closure.then(js => {
       var console = { 
-        error:(msg)=>{}
+        error:(msg:String)=>{}
       };
       
       try {
@@ -200,4 +200,12 @@ export class AppComponent {
 
   
   
+}
+
+interface CMOptions{
+  lineNumbers: boolean,
+  theme: string,     
+  mode: string,
+  gutters: Array<string>,  
+  lint: boolean    
 }

@@ -262,7 +262,7 @@
   </select>
   <ngx-codemirror         
     [(ngModel)]="editorContent"
-    [(options)]="cmEditorPaneOptions"
+    [options]=this.cmEditorPaneOptions
     (focusChange) = this.editorFocusChange($event)
   ></ngx-codemirror>
 </div>
