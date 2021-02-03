@@ -114,7 +114,10 @@ export class AppComponent {
     var transformedPayload = {};
     var context = {} as any;
     closure.then(js => {
-      var console = {};
+      var console = { 
+        error:(msg)=>{}
+      };
+      
       try {
         appRef.consoleMessages = [];
         const replace = {} as any;        
