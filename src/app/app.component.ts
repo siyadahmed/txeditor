@@ -115,6 +115,7 @@ export class AppComponent {
     var context = {} as any;
     closure.then(js => {
       var console = {};
+      console['log'] = ()=>{}
       try {
         appRef.consoleMessages = [];
         const replace = {} as any;        
