@@ -1,6 +1,7 @@
 import { variable } from '@angular/compiler/src/output/output_ast';
-import { Component } from '@angular/core';
+import { Component, Inject, AfterViewInit, ElementRef } from '@angular/core';
 import SampleMessage from '../assets/sample-message.json';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import SampleMessage from '../assets/sample-message.json';
 
 
 export class AppComponent {
+
   title = 'TXEditor';
   inputContentJS = JSON.stringify({'msg':'A sample Message'}, undefined, 2)
   inputContentSQL = JSON.stringify( SampleMessage, undefined, 2)
@@ -37,12 +39,12 @@ export class AppComponent {
       theme: 'mbo',     
       mode: 'javascript',
       gutters: ['CodeMirror-lint-markers'],  
-      lint: true        
+      lint: true      
   }
   selectedItem:any = this.editors[0];
   paneTitle:String = this.editors[0].DisplayText;
 
-
+  
   editorFocusChange = ( focused:Boolean) =>{
     if(focused){
       console.log("Code Editor focused...");
@@ -207,5 +209,6 @@ interface CMOptions{
   theme: string,     
   mode: string,
   gutters: Array<string>,  
-  lint: boolean    
+  lint: boolean,
+  viewportMargin?:Number   
 }
