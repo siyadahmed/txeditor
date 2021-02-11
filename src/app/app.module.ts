@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 import { FormsModule } from '@angular/forms';
 
-import {JSHint} from 'jshint';
+//import {JSHint} from 'jshint';
 
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 

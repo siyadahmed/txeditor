@@ -1,13 +1,17 @@
 import { variable } from '@angular/compiler/src/output/output_ast';
-import { Component } from '@angular/core';
+import { Component, Inject, AfterViewInit, ElementRef } from '@angular/core';
 import SampleMessage from '../assets/sample-message.json';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
+
 export class AppComponent {
+
   title = 'TXEditor';
   inputContentJS = JSON.stringify({'msg':'A sample Message'}, undefined, 2)
   inputContentSQL = JSON.stringify( SampleMessage, undefined, 2)
@@ -30,19 +34,17 @@ export class AppComponent {
   inputObject = {};
   outputObject = {};
   cmEditorPane:any = {};
-  cmEditorPaneOptions = {
+  cmEditorPaneOptions :CMOptions = {
       lineNumbers: true,
-      theme: 'mbo',
-      extraKeys: {"Ctrl-Space": "autocomplete"},
+      theme: 'mbo',     
       mode: 'javascript',
       gutters: ['CodeMirror-lint-markers'],  
-      lint: true  
-      
+      lint: true      
   }
   selectedItem:any = this.editors[0];
   paneTitle:String = this.editors[0].DisplayText;
 
-
+  
   editorFocusChange = ( focused:Boolean) =>{
     if(focused){
       console.log("Code Editor focused...");
@@ -114,9 +116,10 @@ export class AppComponent {
     var transformedPayload = {};
     var context = {} as any;
     closure.then(js => {
-      var console = {
-        error:(msg)=>{}
+      var console = { 
+        error:(msg:String)=>{}
       };
+      
       try {
         appRef.consoleMessages = [];
         const replace = {} as any;        
@@ -199,4 +202,13 @@ export class AppComponent {
 
   
   
+}
+
+interface CMOptions{
+  lineNumbers: boolean,
+  theme: string,     
+  mode: string,
+  gutters: Array<string>,  
+  lint: boolean,
+  viewportMargin?:Number   
 }
